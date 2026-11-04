@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMMS Assessment</title>
+<style>
+body{font-family:Arial; max-width:700px; margin:0 auto; padding:20px; background:#f5f7fa}
+.card{background:white; padding:20px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.1); margin-bottom:20px}
+h2{background:#0d4a7a; color:white; padding:15px; border-radius:10px; text-align:center}
+h3{color:#0d4a7a; border-bottom:2px solid #eee; padding-bottom:5px}
+label{display:block; padding:8px 0; cursor:pointer; font-size:16px}
+input[type="text"]{width:90%; padding:8px; border:1px solid #ccc; border-radius:6px}
+button{width:100%; padding:15px; background:#25D366; color:white; border:none; border-radius:10px; font-size:18px; font-weight:bold; cursor:pointer}
+button:hover{background:#128C7E}
+</style>
+</head>
+<body>
+<h2>CMMS REQUIREMENTS ASSESSMENT</h2>
+<p>Tick the boxes and submit — answers will send via WhatsApp</p>
+
+<div class="card">
+<h3>1. Industry Type</h3>
+<label><input type="radio" name="industry" value="Construction"> Construction</label>
+<label><input type="radio" name="industry" value="Mining"> Mining</label>
+<label><input type="radio" name="industry" value="Manufacturing"> Manufacturing</label>
+<label><input type="radio" name="industry" value="Utilities"> Utilities</label>
+<label><input type="radio" name="industry" value="Facilities Management"> Facilities Management</label>
+<label><input type="radio" name="industry" value="Other"> Other: <input type="text" id="industry_other"></label>
+
+<h3>2. Number of Assets</h3>
+<label><input type="radio" name="assets_num" value="<100"> Less than 100</label>
+<label><input type="radio" name="assets_num" value="100-1000"> 100 - 1,000</label>
+<label><input type="radio" name="assets_num" value=">1000"> More than 1,000</label>
+
+<h3>3. Assets to be Maintained</h3>
+<label><input type="checkbox" class="assets" value="Heavy Equipment"> Heavy Equipment</label>
+<label><input type="checkbox" class="assets" value="Vehicles"> Vehicles</label>
+<label><input type="checkbox" class="assets" value="Generators"> Generators</label>
+<label><input type="checkbox" class="assets" value="Buildings & Facilities"> Buildings & Facilities</label>
+<label><input type="checkbox" class="assets" value="Production Machinery"> Production Machinery</label>
+<label><input type="checkbox" class="assets" value="Electrical Equipment"> Electrical Equipment</label>
+<label><input type="checkbox" class="assets" value="Pumps & Compressors"> Pumps & Compressors</label>
+
+<h3>4. Maintenance Personnel</h3>
+<label><input type="radio" name="users" value="1-5"> 1 - 5 Users</label>
+<label><input type="radio" name="users" value="6-20"> 6 - 20 Users</label>
+<label><input type="radio" name="users" value="21-50"> 21 - 50 Users</label>
+<label><input type="radio" name="users" value=">50"> More than 50 Users</label>
+
+<h3>5. Required CMMS Features</h3>
+<label><input type="checkbox" class="features" value="Preventive Maintenance"> Preventive Maintenance Scheduling</label>
+<label><input type="checkbox" class="features" value="Corrective Maintenance"> Corrective Maintenance Management</label>
+<label><input type="checkbox" class="features" value="Work Order"> Work Order Management</label>
+<label><input type="checkbox" class="features" value="Asset Management"> Asset Management</label>
+<label><input type="checkbox" class="features" value="Spare Parts"> Spare Parts & Inventory</label>
+<label><input type="checkbox" class="features" value="Mobile App"> Mobile Application Access</label>
+<label><input type="checkbox" class="features" value="QR/Barcode"> QR Code / Barcode Tracking</label>
+<label><input type="checkbox" class="features" value="Reporting"> Reporting & Dashboards</label>
+<label><input type="checkbox" class="features" value="Vendor Management"> Vendor & Contractor Management</label>
+<label><input type="checkbox" class="features" value="Inspection Checklists"> Equipment Inspection Checklists</label>
+<label><input type="checkbox" class="features" value="Document Management"> Document Management</label>
+<label><input type="checkbox" class="features" value="Email Alerts"> Email Notifications & Alerts</label>
+
+<h3>6. Deployment Preference</h3>
+<label><input type="radio" name="deploy" value="Cloud"> Cloud-Based</label>
+<label><input type="radio" name="deploy" value="On-Premises"> On-Premises</label>
+<label><input type="radio" name="deploy" value="No Preference"> No Preference</label>
+
+<h3>7. Budget</h3>
+<label><input type="radio" name="budget" value="<1000"> Less than USD 1,000/year</label>
+<label><input type="radio" name="budget" value="1000-5000"> USD 1,000 - 5,000/year</label>
+<label><input type="radio" name="budget" value="5000-20000"> USD 5,000 - 20,000/year</label>
+<label><input type="radio" name="budget" value=">20000"> More than USD 20,000/year</label>
+<label><input type="radio" name="budget" value="Not Determined"> Not Yet Determined</label>
+<br>
+<input type="text" id="friend_name" placeholder="Your Name">
+<br><br>
+<button onclick="sendWhatsApp()">✓ Submit via WhatsApp</button>
+</div>
+
+<script>
+function sendWhatsApp(){
+  let industry = document.querySelector('input[name="industry"]:checked')?.value || "Not selected";
+  let assets_num = document.querySelector('input[name="assets_num"]:checked')?.value || "Not selected";
+  let users = document.querySelector('input[name="users"]:checked')?.value || "Not selected";
+  let deploy = document.querySelector('input[name="deploy"]:checked')?.value || "Not selected";
+  let budget = document.querySelector('input[name="budget"]:checked')?.value || "Not selected";
+  let assets = [...document.querySelectorAll('.assets:checked')].map(e=>e.value).join(", ") || "None";
+  let features = [...document.querySelectorAll('.features:checked')].map(e=>e.value).join(", ") || "None";
+  let name = document.getElementById('friend_name').value || "Friend";
+
+  let message = `*CMMS ASSESSMENT RESPONSE*%0A%0A*From:* ${name}%0A%0A*1. Industry:* ${industry}%0A*2. Assets:* ${assets_num}%0A*3. Maintain:* ${assets}%0A*4. Personnel:* ${users}%0A*5. Features:* ${features}%0A*6. Deployment:* ${deploy}%0A*7. Budget:* ${budget}`;
+  
+  // REPLACE this number with YOUR WhatsApp number (with country code, no +)
+  let yourNumber = "67575897136"; // <- Put your number here e.g. 67571234567
+  
+  window.open(`https://wa.me/${yourNumber}?text=${message}`, '_blank');
+}
+</script>
+</body>
+</html>
